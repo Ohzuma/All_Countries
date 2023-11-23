@@ -7,7 +7,7 @@ const countries = document.querySelector(".countries");
 const search = document.getElementById("search");
 const form = document.getElementById("form");
 const dropDownLi = document.querySelectorAll(".dropdown-li");
-const dropul = document.querySelector(".dropdown");
+const dropul = document.querySelector(".dropdown-ul");
 
 dropBtn.addEventListener("click", () => {
   dropDown.classList.toggle("active");
@@ -48,10 +48,11 @@ const getCountries = () => {
           } = data;
 
           let d = document.createElement("div");
-          d.className = "country";
+
           d.innerHTML = `
+          <div class="country">
               <figure class="flag">
-                <img src=${png} alt=${alt} />
+                <img src=${png} alt="${alt}" />
                 <figcaption>
                   <h2>${common}</h2>
                   <p>
@@ -68,6 +69,7 @@ const getCountries = () => {
                   </p>
                 </figcaption>
               </figure>
+              </div>
        `;
           countries.appendChild(d);
         });
@@ -95,11 +97,11 @@ function FilterRegion() {
 
       let a = [...new Set(regionFilter.map((item) => item.region))];
       a.map((item) => {
-        let ul = document.createElement("ul");
-        ul.className = "dropdown-ul";
-        let region = `<li class="dropdown-li">${item}</li>`;
-        ul.innerHTML = region;
-        dropul.appendChild(ul);
+        let li = document.createElement("li");
+        li.className = "dropdown-li";
+        li.innerText = item;
+        // ul.innerHTML = region;
+        dropul.appendChild(li);
       });
     });
 }
@@ -110,13 +112,12 @@ dropul.addEventListener("click", (e) => {
   if (e.target.classList.contains("dropdown-li")) {
     dropDownValue = e.target.innerText.toLowerCase();
   }
-  if (e.target.innerText === "all") {
+  if (e.target.innerText === "All") {
     dropDownValue = "";
   }
   getCountries();
 });
 search.addEventListener("input", (e) => {
   search_term = e.target.value;
-  // dropDownValue =
   getCountries();
 });
