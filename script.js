@@ -1,5 +1,3 @@
-// import { axios } from "./node_modules/axios/dist/axios";
-
 const dropBtn = document.getElementById("drop-btn");
 const dropIcon = document.querySelector(".drop-btn span");
 const dropDown = document.querySelector(".dropdown");
@@ -8,13 +6,13 @@ const search = document.getElementById("search");
 const form = document.getElementById("form");
 const dropDownLi = document.querySelectorAll(".dropdown-li");
 const dropul = document.querySelector(".dropdown-ul");
+const country = document.getElementsByClassName("country");
 
 dropBtn.addEventListener("click", () => {
   dropDown.classList.toggle("active");
   dropIcon.classList.toggle("rotate");
 });
 
-// let Country;
 let search_term = "";
 let dropDownValue = "";
 
@@ -46,32 +44,32 @@ const getCountries = () => {
             capital,
             flags: { png, alt },
           } = data;
+          let CountryDiv = document.createElement("div");
+          let mainFig = document.createElement("figure");
+          let countryFlag = document.createElement("img");
+          let figCap = document.createElement("figcaption");
+          let CountryName = document.createElement("h2");
+          const countryPopulation = document.createElement("h5");
+          const countryRegion = document.createElement("h5");
+          const countryCapital = document.createElement("h5");
 
-          let d = document.createElement("div");
+          CountryDiv.setAttribute("class", `country ${region}`);
+          countryFlag.setAttribute("src", `${png}`);
+          mainFig.setAttribute("class", "flag");
 
-          d.innerHTML = `
-          <div class="country">
-              <figure class="flag">
-                <img src=${png} alt="${alt}" />
-                <figcaption>
-                  <h2>${common}</h2>
-                  <p>
-                    <span>Population:</span>
-                    <span>${population}</span>
-                  </p>
-                  <p>
-                    <span>Region:</span>
-                    <span>${region}</span>
-                  </p>
-                  <p>
-                    <span>Capital:</span>
-                    <span>${capital}</span>
-                  </p>
-                </figcaption>
-              </figure>
-              </div>
-       `;
-          countries.appendChild(d);
+          CountryName.textContent = common;
+          countryPopulation.innerHTML = `Population: <span>${population}</span>`;
+          countryCapital.innerHTML = `Capital: <span>${capital}</span>`;
+          countryRegion.innerHTML = `Region: <span>${region}</span>`;
+
+          CountryDiv.appendChild(mainFig);
+          mainFig.appendChild(countryFlag);
+          mainFig.appendChild(figCap);
+          figCap.appendChild(CountryName);
+          figCap.appendChild(countryPopulation);
+          figCap.appendChild(countryRegion);
+          figCap.appendChild(countryCapital);
+          countries.appendChild(CountryDiv);
         });
       })
       .catch((err) => {
@@ -100,7 +98,6 @@ function FilterRegion() {
         let li = document.createElement("li");
         li.className = "dropdown-li";
         li.innerText = item;
-        // ul.innerHTML = region;
         dropul.appendChild(li);
       });
     });
@@ -117,7 +114,56 @@ dropul.addEventListener("click", (e) => {
   }
   getCountries();
 });
+
 search.addEventListener("input", (e) => {
   search_term = e.target.value;
   getCountries();
 });
+function singleData() {
+  axios.get(`https://restcountries.com/v3.1/all`).then(async (res) => {
+    let countries = res.data;
+    for (let i = 0; i < country.length; i++) {
+      country[i].onclick = function () {
+        let curr = this;
+        document
+          .querySelectorAll(".country")
+          .forEach((e) => e.classList.add("remove"));
+        let currName = curr.children[0].children[1].children[0].textContent;
+
+        countries.forEach((coun) => {
+          const {
+            name: { common },
+            population,
+            region,
+            capital,
+            flags: { png, alt },
+          } = coun;
+
+          console.log(countries.nativeName);
+          if (coun.name.common == currName) {
+            document.title = common;
+            const mainDiv = document.createElement("div");
+            const backBotton = document.createElement("button");
+            const colDiv = document.createElement("div");
+            const imgDiv = document.createElement("div");
+            const img = document.createElement("img");
+            const detailedDiv = document.createElement("div");
+            const detailCol = document.createElement("div");
+            const border = document.createElement("div");
+            const countryName = document.createElement("h2");
+            const nativeName = document.createElement("h5");
+            const population = document.createElement("h5");
+            const subRegion = document.createElement("h5");
+            const topLevel = document.createElement("h5");
+            const currencies = document.createElement("h5");
+            const language = document.createElement("h5");
+
+            img.setAttribute("src", `${png}`);
+            imgDiv.setAttribute("class", "img_div");
+          }
+        });
+      };
+    }
+  });
+}
+singleData();

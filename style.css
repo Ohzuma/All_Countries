@@ -191,7 +191,7 @@ header h1 {
   /* grid-template-columns: repeat(4, 1fr); */
   grid-template-columns: repeat(4, minmax(250px, 1fr));
   grid-column-gap: 4rem;
-  grid-row-gap: 3rem;
+  grid-row-gap: 5rem;
 }
 
 .country {
@@ -200,11 +200,17 @@ header h1 {
   background-color: var(--white);
   box-shadow: 3px 2px 15px 5px rgba(167, 155, 155, 0.164);
   cursor: pointer;
+  transition: 0.5s;
+}
+.country:hover {
+  transform: scale(1.04);
+  transition: 0.5s;
 }
 
 .flag img {
   width: 100%;
-  height: 130px;
+  height: 150px;
+  border-radius: 7px 7px 0px 0px;
 }
 
 figcaption {
@@ -221,19 +227,24 @@ figcaption h2 {
   padding-bottom: 1rem;
 }
 
-figcaption p {
+figcaption h5 {
   display: flex;
   gap: 0.5rem;
   padding-bottom: 0.5rem;
   font-family: "Nunito Sans", sans-serif;
   font-size: var(--home-font);
+  color: var(--dark-blu);
 }
 
-figcaption p span:nth-of-type(1) {
-  font-weight: 600;
+figcaption h5 span:nth-of-type(1) {
+  font-size: 16px;
+  font-weight: 300;
   color: var(--very-darkblue);
 }
 
-figcaption p span:nth-of-type(2) {
-  color: var(--light-mode-darkgray);
+.remove {
+  display: none;
+}
+.this {
+  display: block;
 }
