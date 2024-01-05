@@ -253,6 +253,7 @@ figcaption h5 span:nth-of-type(1) {
   .search {
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
     gap: 1rem;
   }
   .search-icon {
@@ -271,5 +272,21 @@ figcaption h5 span:nth-of-type(1) {
   }
   .container {
     margin: 0rem 2rem 0rem 2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .country {
+    width: auto;
+    max-width: auto;
+  }
+  header {
+    padding: 1rem 2rem;
+  }
+  header h1 {
+    font-size: 14px;
+  }
+  .toggleBtn {
+    font-size: 13px;
   }
 }
